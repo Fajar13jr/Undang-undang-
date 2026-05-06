@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Ngatno & Ngatini</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sage-green: #8A9A5B;
+            --cream: #F8F5F0;
+            --dark-gold: #A68911;
+            --text-dark: #2D3436;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80') center/cover;
+            color: var(--white);
+            padding: 20px;
+        }
+
+        .hero h1 { font-size: 3rem; margin: 10px 0; }
+        .hero p { font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* Countdown */
+        #countdown {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .count-item {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 75px;
+        }
+        .count-item span { display: block; font-size: 1.5rem; font-weight: bold; }
+
+        /* Sections */
+        .section-padding { padding: 80px 20px; text-align: center; }
+        .bg-white { background-color: var(--white); }
+
+        .quote-box { font-style: italic; max-width: 600px; margin: 0 auto; color: var(--sage-green); font-size: 1.1rem; }
+
+        /* Profile */
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .profile-card { max-width: 300px; }
+        .img-placeholder {
+            width: 180px;
+            height: 180px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid var(--sage-green);
+        }
+
+        /* Cards */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        .event-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-bottom: 5px solid var(--sage-green);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--sage-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 20px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn:hover { background: var(--dark-gold); transform: translateY(-2px); }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #eee;
+            border-radius: 12px;
+            background-size: cover;
+        }
+
+        /* Digital Envelope */
+        .wallet-card {
+            background: #f4f6f2;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px auto;
+            max-width: 400px;
+            border: 1px dashed var(--sage-green);
+        }
+
+        /* Music Floating Button */
+        #music-control {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: var(--white);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Form Styling */
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-padding { padding: 60px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+    </audio>
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+
+    <!-- 1. Hero Section -->
+    <section class="hero">
+        <div data-aos="fade-up">
+            <p>The Wedding Of</p>
+            <h1>Ngatno & Ngatini</h1>
+            <p>Minggu, 31 Mei 2026</p>
+            <div id="countdown">
+                <div class="count-item"><span id="days">0</span> Hari</div>
+                <div class="count-item"><span id="hours">0</span> Jam</div>
+                <div class="count-item"><span id="minutes">0</span> Menit</div>
+            </div>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Ngatno+dan+Ngatini&dates=20260531T020000Z/20260531T140000Z&details=Acara+pernikahan+Ngatno+dan+Ngatini+di+Gedung+Serbaguna+Jatibarang&location=Gedung+Serbaguna,+Jatibarang,+Indramayu" target="_blank" class="btn">Save The Date</a>
+        </div>
+    </section>
+
+    <!-- 2. Quote -->
+    <section class="section-padding" data-aos="fade-up">
+        <div class="quote-box">
+            <p>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."</p>
+            <br><strong>(QS. Ar-Rum: 21)</strong>
+        </div>
+    </section>
+
+    <!-- 3. Profile -->
+    <section class="section-padding bg-white">
+        <h2 data-aos="fade-down" style="margin-bottom: 20px;">Mempelai</h2>
+        <div class="profile-container">
+            <div class="profile-card" data-aos="fade-right">
+                <div class="img-placeholder"></div>
+                <h3>Fulan Maulana</h3>
+                <p>Putra dari Bapak Adam & Ibu Hawa</p>
+            </div>
+            <div class="profile-card" data-aos="fade-left">
+                <div class="img-placeholder"></div>
+                <h3>Fulani Maulani</h3>
+                <p>Putri dari Bapak Cokro Wolo & Ibu Ningrat</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Detail Acara -->
+    <section class="section-padding">
+        <h2 data-aos="fade-up">Detail Acara</h2>
+        <div class="event-grid">
+            <div class="event-card" data-aos="zoom-in">
+                <h3>Akad Nikah</h3>
+                <p><strong>Minggu, 31 Mei 2026</strong></p>
+                <p>09:00 WIB - Selesai</p>
+                <hr style="margin: 15px 0; opacity: 0.1;">
+                <p>Gedung Serbaguna<br>Jatibarang, Indramayu</p>
+                <a href="https://maps.google.com" target="_blank" class="btn">Buka Maps</a>
+            </div>
+            <div class="event-card" data-aos="zoom-in" data-aos-delay="200">
+                <h3>Resepsi</h3>
+                <p><strong>Minggu, 31 Mei 2026</strong></p>
+                <p>11:00 WIB - Selesai</p>
+                <hr style="margin: 15px 0; opacity: 0.1;">
+                <p>Gedung Serbaguna<br>Jatibarang, Indramayu</p>
+                <a href="https://maps.google.com" target="_blank" class="btn">Buka Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Galeri -->
+    <section class="section-padding bg-white">
+        <h2 data-aos="fade-up" style="margin-bottom: 30px;">Galeri Foto</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-aos="zoom-in"></div>
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"></div>
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"></div>
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"></div>
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400"></div>
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500"></div>
+        </div>
+    </section>
+
+    <!-- 6. RSVP -->
+    <section class="section-padding">
+        <h2 data-aos="fade-up">RSVP</h2>
+        <p>Mohon konfirmasi kehadiran Anda</p>
+        <form style="max-width: 450px; margin: 30px auto; text-align: left;" onsubmit="sendRSVP(event)">
+            <div>
+                <label>Nama Tamu</label>
+                <input type="text" id="rsvp-name" placeholder="Nama Anda" required>
+            </div>
+            <div style="margin-top: 15px;">
+                <label>Status Kehadiran</label>
+                <select id="rsvp-status">
+                    <option value="Hadir">Hadir</option>
+                    <option value="Tidak Hadir">Tidak Hadir</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px;">
+                <label>Ucapan Doa</label>
+                <textarea id="rsvp-wish" rows="3" placeholder="Tulis ucapan selamat..."></textarea>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Kirim Konfirmasi</button>
+        </form>
+    </section>
+
+    <!-- 7. Amplop Digital -->
+    <section class="section-padding bg-white">
+        <h2 data-aos="fade-up">Kado Digital</h2>
+        <p style="max-width: 500px; margin: 10px auto;">Doa restu Anda merupakan karunia terindah bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui:</p>
+        
+        <div class="wallet-card" data-aos="fade-up">
+            <p><strong>Bank Radit</strong></p>
+            <p id="rek1" style="font-size: 1.2rem; font-weight: bold; margin: 5px 0;">33565444579</p>
+            <p>A.N. Radit Nuansa Harahap</p>
+            <button class="btn" onclick="copyText('rek1')">Salin Rekening</button>
+        </div>
+
+        <div class="wallet-card" data-aos="fade-up" data-aos-delay="200">
+            <p><strong>Bank Bowo</strong></p>
+            <p id="rek2" style="font-size: 1.2rem; font-weight: bold; margin: 5px 0;">5677888889799</p>
+            <p>A.N. Wibowo Mangku Wanito Limo</p>
+            <button class="btn" onclick="copyText('rek2')">Salin Rekening</button>
+        </div>
+    </section>
+
+    <!-- 8. Footer -->
+    <footer class="section-padding" style="background: var(--sage-green); color: white;">
+        <p>Terima kasih atas doa restunya</p>
+        <h2 style="margin-top: 10px;">Ngatno & Ngatini</h2>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS
+        AOS.init({ duration: 1000, once: true });
+
+        // Countdown Timer ke 31 Mei 2026
+        const targetDate = new Date("May 31, 2026 09:00:00").getTime();
+        
+        const updateCountdown = setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            
+            if (diff < 0) {
+                clearInterval(updateCountdown);
+                document.getElementById('countdown').innerHTML = "Hari Bahagia Telah Tiba!";
+                return;
+            }
+
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        }, 1000);
+
+        // Music Control
+        const music = document.getElementById('bg-music');
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                document.getElementById('music-control').innerText = "⏸️";
+            } else {
+                music.pause();
+                document.getElementById('music-control').innerText = "🎵";
+            }
+        }
+
+        // Copy Rekening
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Nomor rekening disalin ke clipboard.");
+        }
+
+        // WhatsApp RSVP
+        function sendRSVP(e) {
+            e.preventDefault();
+            const name = document.getElementById('rsvp-name').value;
+            const status = document.getElementById('rsvp-status').value;
+            const wish = document.getElementById('rsvp-wish').value;
+            
+            const waMsg = `Halo Ngatno & Ngatini, saya ${name}. \n\nSaya ingin konfirmasi bahwa saya *${status}* di acara pernikahan kalian. \n\nUcapan: ${wish}`;
+            window.open(`https://wa.me/6289661176570?text=${encodeURIComponent(waMsg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
